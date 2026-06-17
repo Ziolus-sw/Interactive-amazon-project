@@ -35,7 +35,7 @@ products.forEach((product)=>{
  `<div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
-              src="images/products/${products.name}.jpg">
+              src="${products.image}.jpg">
           </div>
 
           <div class="product-name limit-text-to-2-lines">
