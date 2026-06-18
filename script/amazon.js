@@ -1,57 +1,26 @@
-const products =[
-  {
-    image: "images/products/athletic-cotton-socks-6-pairs.jpg",
-    name: "product-name limit-text-to-2-lines",
-    rating : {
-      stars: 4.5,
-      count: 87
-    },
-    pricecents:1090 
-  },
-
-  {
-    image:"images/products/intermediate-composite-basketball.jpg",
-    name:'Intermediate Size Basketball',
-
-    rating:{
-      stars: 4,
-      count: 127
-    },
-    pricecents: 2095
-
-  },
-  {
-    image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
-    name:"Adults Plain Cotton T-Shirt - 2 Pack",
-    rating:{
-      stars: 4.5 ,
-      count: 56
-    },
-    pricecents: 799
-  }
-];
-products.forEach((product)=>{
- let producthtml += 
- `<div class="product-container">
+document.addEventListener("DOMContentLoaded", () => {
+  let producthtml = "";
+  products.forEach((product) => {
+    producthtml += `<div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
-              src="${products.image}.jpg">
+              src="${product.image}">
           </div>
 
           <div class="product-name limit-text-to-2-lines">
-          ${products.name}
+          ${product.name}
           </div>
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${products.rating.stars*10}.png">
+              src="images/ratings/rating-${product.rating.stars * 10}.png">
             <div class="product-rating-count link-primary">
-              ${products.rating.counts}
+              ${product.rating.counts}
             </div>
           </div>
 
           <div class="product-price">
-            $${(products.pricecents/100).toFixed(2)}
+            $${(product.priceCents / 100).toFixed(2)}
           </div> 
 
           <div class="product-quantity-container">
@@ -71,26 +40,84 @@ products.forEach((product)=>{
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart JS-added-to-cart">
             <img src="images/icons/checkmark.png">
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary 
+          js-addtocart-button-primary"              
+          
+          data-product-id= "${product.Id}">
             Add to Cart
           </button>
-        </div>
+</div>
 `;
-});
+  });
 
-/* {
-    image: "",
-    name:"",
-    rating:{
-      stars:  ,
-      count:
-    },
-    pricecents: 
-  },
-  */
- document.querySelector('.js-product-grid').innerHTML = producthtml;
+  document.querySelector(".js-product-grid").innerHTML = producthtml;
+
+  document
+    .querySelectorAll(".product-container")
+    .forEach((productContainer, PCindex) => {
+      let clickCount = 0;
+      let settimeoutId;
+      productContainer.addEventListener("click", (e) => {
+        const btn = e.target.closest(".button-primary");
+        if (!btn) return;
+
+        document
+          .querySelectorAll(`.JS-added-to-cart`)
+          .forEach((addedToCartBtn, ATCindex) => {
+            if (ATCindex === PCindex) {
+              console.log(PCindex, ATCindex);
+              clickCount += 1;
+              if (clickCount > 1) {
+                clearTimeout(settimeoutId);
+              }
+              //make the opactity of the added to cart button corresponding to the product container 100%
+              addedToCartBtn.style.opacity = "100%";
+
+              // addinf the set time out fading funtiion on the same
+              settimeoutId = setTimeout(() => {
+                addedToCartBtn.style.opacity = "0%";
+              }, 1000);
+            }
+            //     let opacity = 0;
+            //     function increaseOpacity() {
+            //       opacity+=2;
+            //       if (opacity<100) {
+            //         document.querySelector('.added-to-cart').style.opacity =`${opacity}%`;
+            //         requestAnimationFrame(increaseOpacity);
+            //       }
+            //     }
+
+            //     requestAnimationFrame(increaseOpacity);
+          });
+      });
+    });
+
+  document
+    .querySelectorAll(".js-addtocart-button-primary")
+    .forEach((button) => {
+      console.log("hello");
+
+      button.addEventListener("click", () => {
+        let productId = button.dataset.productId;
+        let matchingitem;
+        cart.forEach((item) => {
+          if (productId === item.productId) {
+            matchingItem = item;
+          }
+          if (matchingitem) {
+            matchingitem.quantity += 1;
+          } else {
+            cart.push({
+              productId,
+              quantity: 1,
+            });
+          }
+        });
+      });
+    });
+});
