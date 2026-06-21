@@ -44,11 +44,33 @@
 
 .cart-item-container,
 .payment-summary {
+  position: relative;
   border: 1px solid rgb(222, 222, 222);
   border-radius: 4px;
   padding: 18px;
 }
+.cart-update-container{
+  position: absolute;
+  width: 30%;
+  min-width:40px;
+  height: 20%;
+  min-height: 30px;
+  background-color: #fff;
+  border: 1px solid rgb(222, 222, 222);
+  border-radius: 10px;
+  z-index: 1;
+  left: 150px;
+  top: 60%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+}
+.cart-update-container input:focus
+{
+  outline: none;
 
+}
 .cart-item-container {
   margin-bottom: 12px;
 }
@@ -65,6 +87,11 @@
       the HTML. grid-row overrides this default ordering). */
     grid-row: 1;
     margin-bottom: 12px;
+  }
+  .cart-update-container{
+    height:12%;
+    width: 35%;
+    top: 141px;
   }
 }
 
@@ -208,4 +235,49 @@
 
   margin-top: 11px;
   margin-bottom: 15px;
+}
+@media (max-width:555px) {
+  .cart-update-container{
+    height:10%;
+    width: 35%;
+    min-width: 160px;
+    left: 150px;
+    top: 160px;
+  }
+}
+@media (max-width:408px) {
+  .cart-update-container{
+    height:8%;
+    width: 35%;
+    min-width: 160px;
+    left: 150px;
+    top: 175px;
+  }
+}
+@media (max-width:390px) {
+  .cart-update-container{
+    height:8%;
+    width: 35%;
+    min-width: 160px;
+    left: 120px;
+    top:195px;
+  }
+}
+@media (max-width:368px) {
+  .cart-update-container{
+    height:5%;
+    width: 35%;
+    min-width: 160px;
+    left: 35%;
+    top:220px;
+  }
+}
+@media (max-width:329px) {
+  .cart-update-container{
+    height:5%;
+    width: 35%;
+    min-width: 160px;
+    left: 35%;
+    top:257px;
+  }
 }
