@@ -1,3 +1,5 @@
+import {deliveryOptions} from "../data/deliveryOptions.js";
+
 export let cart = JSON.parse(localStorage.getItem("cart")) ||[];
 
 export function addtocart(productId,matchingItem, selectedQuantity) {
@@ -16,6 +18,7 @@ export function addtocart(productId,matchingItem, selectedQuantity) {
           cart.push({
             id: productId,
             quantity: selectedQuantity,
+            deliveryOptionId :'1'
           });
           localStorage.setItem('cart', JSON.stringify(cart));
         }

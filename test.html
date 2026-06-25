@@ -1,0 +1,45 @@
+<div class="cart-item-container js-cart-item-container" data-product-id="${productId}">
+  <div class="delivery-date">
+    Delivery date: Tuesday, June 21
+  </div>
+
+  <div class="cart-item-details-grid">
+    <img class="product-image" src="${productImage}">
+
+    <div class="cart-item-details">
+      <div class="product-name">
+        ${productName}
+      </div>
+      <div class="product-price">
+        $${(productPrice / 100).toFixed(2)}
+      </div>
+      <div class="product-quantity">
+        <span>
+          Quantity: <span class="quantity-label">${productQuantity}</span>
+        </span>
+        <span class="update-quantity-link link-primary js-update-cart-quantity-btn">
+          Update
+        </span>
+        <span class="delete-quantity-link link-primary js-delete-item-btn">
+          Delete
+        </span>
+      </div>
+    </div>
+
+
+    <div class="delivery-options">
+      <div class="delivery-options-title">
+        Choose a delivery option:
+      </div>
+      ${deilveryDateHTML(productId)}
+    </div>
+
+
+    <div class="cart-update-container">
+
+      <input id="quantity" type="range" name="cart-quantity" id="cart-quantity" value="${productQuantity}" step="1"
+        min="0" max="20" oninput="result.value = quantity.value">
+      <output for="quantity" id="result"></output>
+    </div>
+  </div>
+</div>
