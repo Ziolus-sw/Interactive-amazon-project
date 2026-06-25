@@ -3,7 +3,6 @@ import {products} from "../data/products.js";
 
 
 
-
 function updateCartQuantity() {
   let cartQuantity=0 ;
         cart.forEach((item) => {
