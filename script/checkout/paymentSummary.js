@@ -22,7 +22,7 @@ export function renderPaymentSummary() {
   
   function totalPrice(cartItem, product) {
   if (cartItem.id === product.id){
-      price += (product.priceCents);
+      price += (product.priceCents * cartItem.quantity);
   } 
   }
 

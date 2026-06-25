@@ -70,7 +70,7 @@ export function funorderSummary() {
     <div class="cart-update-container">
 
       <input id="quantity" type="range" name="cart-quantity" id="cart-quantity" value="${productQuantity}" step="1"
-        min="0" max="20" oninput="result.value = quantity.value">
+        min="1" max="20" oninput="result.value = quantity.value">
       <output for="quantity" id="result"></output>
     </div>
   </div>
@@ -168,6 +168,7 @@ export function funorderSummary() {
         localStorage.setItem("cart", JSON.stringify(cart));
         checkoutItems();
         console.log(cart);
+        renderPaymentSummary();
       }));
   }
 
@@ -192,6 +193,7 @@ export function funorderSummary() {
             // }
             // })
             deleteCartItem();
+            renderPaymentSummary();
           });
       });
   }
