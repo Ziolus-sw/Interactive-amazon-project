@@ -1,29 +1,25 @@
-import {cart,addtocart} from "../data/cart.js";
-import {products} from "../data/products.js";
-
-
+import { cart, addtocart } from "../data/cart.js";
+import { products } from "../data/products.js";
 
 function updateCartQuantity() {
-  let cartQuantity=0 ;
-        cart.forEach((item) => {
-            cartQuantity += Number(item.quantity);
-          });
-    
-        document.querySelector(".JS-cart-quantity").textContent =
-          `${Number(cartQuantity)}`;       
+  let cartQuantity = 0;
+  cart.forEach((item) => {
+    cartQuantity += Number(item.quantity);
+  });
+
+  document.querySelector(".JS-cart-quantity").textContent =
+    `${Number(cartQuantity)}`;
 }
 
 export function countCartQuantity() {
-  let cartQuantity=0 ;
-        cart.forEach((item) => {
-            cartQuantity += Number(item.quantity);
-          });
-          return Number(cartQuantity);      
+  let cartQuantity = 0;
+  cart.forEach((item) => {
+    cartQuantity += Number(item.quantity);
+  });
+  return Number(cartQuantity);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
-
   let producthtml = "";
   products.forEach((product) => {
     producthtml += `<div class="product-container">
@@ -38,14 +34,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${product.rating.stars * 10}.png">
+              src="${product.getStarsUrl()}">
             <div class="product-rating-count link-primary">
               ${product.rating.counts}
             </div>
           </div>
 
           <div class="product-price">
-            $${(product.priceCents / 100).toFixed(2)}
+            $${product.getPriceDollars()}
           </div> 
 
           <div class="product-quantity-container   add-to-cart-button JS-product-quantity-container-${product.id}">
@@ -85,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll(".product-container")
     .forEach((productContainer, PCindex) => {
-
       let clickCount = 0;
       let settimeoutId;
       productContainer.addEventListener("click", (e) => {
@@ -107,14 +102,13 @@ document.addEventListener("DOMContentLoaded", () => {
               // addinf the set time out fading funtiion on the same
               settimeoutId = setTimeout(() => {
                 // addedToCartBtn.style.opacity = "0%";
-                 let opacity = 100;
+                let opacity = 100;
                 function decreaseOpacity() {
-                  opacity-=20;
-                  if (opacity>0) {
-                   addedToCartBtn.style.opacity =`${opacity}%`;
+                  opacity -= 20;
+                  if (opacity > 0) {
+                    addedToCartBtn.style.opacity = `${opacity}%`;
                     requestAnimationFrame(decreaseOpacity);
-                  }
-                  else{
+                  } else {
                     addedToCartBtn.style.opacity = "0%";
                   }
                   return;
@@ -122,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 requestAnimationFrame(decreaseOpacity);
               }, 1000);
             }
-               
           });
       });
     });
@@ -133,13 +126,17 @@ document.addEventListener("DOMContentLoaded", () => {
       button.addEventListener("click", () => {
         let productId = button.dataset.productId;
         let matchingItem;
-        let selectedQuantity= Number(document.querySelector(`.JS-product-quantity-container-${productId} select`).value);
+        let selectedQuantity = Number(
+          document.querySelector(
+            `.JS-product-quantity-container-${productId} select`,
+          ).value,
+        );
         console.log(typeof selectedQuantity, selectedQuantity);
 
-        addtocart(productId,matchingItem,selectedQuantity);
-        updateCartQuantity();  
+        addtocart(productId, matchingItem, selectedQuantity);
+        updateCartQuantity();
       });
     });
 
-    updateCartQuantity();
+  updateCartQuantity();
 });

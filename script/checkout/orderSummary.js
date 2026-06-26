@@ -2,7 +2,7 @@ import { cart } from "../../data/cart.js";
 import { deliveryOptions } from "../../data/deliveryOptions.js";
 import { products } from "../../data/products.js";
 import { countCartQuantity } from "../amazon.js";
-import {  renderPaymentSummary} from "./paymentSummary.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 
 export function funorderSummary() {
@@ -23,13 +23,13 @@ export function funorderSummary() {
           productQuantity = cartItem.quantity;
           productPrice = productItem.priceCents;
           let dateString;
-           deliveryOptions.forEach((option)=>{
+          deliveryOptions.forEach((option) => {
             if (option.id === cartItem.deliveryOptionId) {
               const today = dayjs();
               let deliveryDate = today.add(option.deliveryDays, "days");
-            dateString = deliveryDate.format("dddd, MMMM D");  
+              dateString = deliveryDate.format("dddd, MMMM D");
             }
-           })
+          });
           orderSummary += `<div class="cart-item-container js-cart-item-container" data-product-id="${productId}">
   <div class="delivery-date js-delivery-date">
   Delivery date: ${dateString}
@@ -78,7 +78,6 @@ export function funorderSummary() {
         }
       });
     });
-    
   }
 
   function deliveryDateHTML(productId, cartItem) {
@@ -94,7 +93,7 @@ export function funorderSummary() {
           : `${(option.shippingCost / 100).toFixed(2)}`;
 
       const isChecked =
-      cartItem.deliveryOptionId === option.id ? "checked" : "";
+        cartItem.deliveryOptionId === option.id ? "checked" : "";
       html += `<div class="delivery-option JS-delivery-option">
                   <input ${isChecked} type="radio"
                     class="delivery-option-input" value="${dateString}"
@@ -118,20 +117,22 @@ export function funorderSummary() {
     document
       .querySelectorAll(".js-cart-item-container")
       .forEach((cartItem, index) => {
-          cartItem.querySelectorAll(".JS-delivery-option").forEach((deliveryOption) => {
+        cartItem
+          .querySelectorAll(".JS-delivery-option")
+          .forEach((deliveryOption) => {
             deliveryOption.addEventListener("click", (e) => {
-              const radioInput = deliveryOption.querySelector('input');
-              
+              const radioInput = deliveryOption.querySelector("input");
+
               // radioInput.dispatchEvent(new Event('change'));
               const productId = radioInput.dataset.productId;
               const id = radioInput.dataset.deliveryOptionId;
               console.log(productId, id);
-              
+
               let product;
               cart.forEach((cartitem) => {
                 if (cartitem.id === productId) {
                   product = cartitem;
-                  console.log(product);  
+                  console.log(product);
                 }
               });
               product.deliveryOptionId = id;
@@ -221,6 +222,4 @@ export function funorderSummary() {
   updateSliderManage();
   deleteCartItem();
   isRadioSelected();
-
 }
-

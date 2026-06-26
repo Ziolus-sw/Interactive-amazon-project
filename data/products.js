@@ -1,3 +1,29 @@
+
+class Products{
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+  keywords;
+
+  getStarsUrl (){
+    return `images/ratings/rating-${this.rating.stars * 10}.png`;
+  }
+  getPriceDollars(){
+    return `${(this.priceCents/100).toFixed(2)}`;
+  }
+  constructor(productDetail) {
+    this.id= productDetail.id;
+    this.image = productDetail.image;
+    this.name = productDetail.name;
+    this.priceCents= productDetail.priceCents;
+    this.rating = productDetail.rating;
+    this.keywords = productDetail.keywords;
+  }  
+}
+
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -657,4 +683,7 @@ export const products = [
       "mens"
     ]
   }
-];
+].map(productDetail=>{
+  return new Products(productDetail)
+})
+;
